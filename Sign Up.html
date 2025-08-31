@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="Sign Up.css">
+
+   
+</head>
+<body>
+  <div class="container">   <!--دي البتربط الخلفيه -->
+ 
+  
+  
+
+
+<header class="main-header">
+  <a href="#" class="logo">
+    <span>h</span><span>u</span><span>s</span><span>s</span><span>e</span><span>i</span><span>n</span>
+  </a>
+
+  <div class="btn-group">
+    <!-- الزرار العاديين -->
+    <a class="btn-17" href="hussein.html#services">
+      <span class="text-container"><span class="text">Services</span></span>
+    </a>
+    <a class="btn-17" href="hussein.html#projects">
+      <span class="text-container"><span class="text">Projects</span></span>
+    </a>
+    <a class="btn-17" href="hussein.html#contact">
+      <span class="text-container"><span class="text">Contact</span></span>
+    </a>
+  </div>
+
+
+ <div class="menu-icon" id="menuIcon">&#9776;</div>    <!-- ده التلات شروط -->
+</header>
+
+<!--ده الكلام الفي التلات شروط -->
+ <nav class="side-menu" id="sideMenu">
+        <ul>
+            <li><a href="hussein2.html" >Sign in</a></li>
+            <li><a href="dark-mode.html" > Dark Mode</a></li>
+            <li><a href="#" target="_blank">cv</a></li>
+            <li><a href="#" target="_blank">Chat </a></li>
+            <li><a href="#" target="_blank">Settings </a></li>
+
+        </ul>
+    </nav>
+
+
+<!-- ده الكود بتاع الاسكيليز -->
+
+
+ <main id="mainContent">
+
+
+<!--ده سكشن تسجيل الدخول-->
+
+
+<section class="Sign" dir="rtl">
+    <div class="tech-decoration tech-1"></div>
+    <div class="tech-decoration tech-2"></div>
+    
+    <div class="form-container">
+        <div class="form-header">
+            <div class="floating-icon">
+                <i class="fas fa-user-plus fa-2x mb-3"></i>
+            </div>
+            <h1 class="text-xl font-bold">إنشاء حساب جديد</h1>
+            <p class="text-xs opacity-90">انضم إلى عالم التكنولوجيا المتطور</p>
+        </div>
+        
+        <div class="form-body">
+            <form id="registrationForm">
+                <div class="input-group">
+                    <label class="input-label">الاسم الأول</label>
+                    <input type="text" class="input-field" placeholder="أدخل اسمك الأول" required>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">اسم العائلة</label>
+                    <input type="text" class="input-field" placeholder="أدخل اسم العائلة" required>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">رقم الهاتف</label>
+                    <input type="tel" class="input-field" placeholder="05XXXXXXXX" pattern="[0-9]{10}" required>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">البريد الإلكتروني</label>
+                    <input type="email" class="input-field" placeholder="example@email.com" required>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">كلمة المرور الجديدة</label>
+                    <div class="password-container">
+                        <input type="password" class="input-field pr-8" placeholder="أدخل كلمة المرور" id="password" required>
+                        <span class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">تاريخ الميلاد</label>
+                    <div class="date-group">
+                        <div>
+                            <label class="input-label text-xs">اليوم</label>
+                            <select class="input-field text-xs" id="daySelect" required>
+                                <option value="">اليوم</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="input-label text-xs">الشهر</label>
+                            <select class="input-field text-xs" id="monthSelect" required>
+                                <option value="">الشهر</option>
+                                <option value="1">يناير</option>
+                                <option value="2">فبراير</option>
+                                <option value="3">مارس</option>
+                                <option value="4">أبريل</option>
+                                <option value="5">مايو</option>
+                                <option value="6">يونيو</option>
+                                <option value="7">يوليو</option>
+                                <option value="8">أغسطس</option>
+                                <option value="9">سبتمبر</option>
+                                <option value="10">أكتوبر</option>
+                                <option value="11">نوفمبر</option>
+                                <option value="12">ديسمبر</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="input-label text-xs">السنة</label>
+                            <select class="input-field text-xs" id="yearSelect" required>
+                                <option value="">السنة</option>
+                            </select>
+                        </div>
+                    </div>              
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-user-plus mr-2"></i>
+                    إنشاء الحساب
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+</main>
+
+
+<footer class="footer">
+  <p class="footer-tittl">copyrights @ <span>hussein alkir </span></p>
+  <div class="social-icons">
+    <a href="#"><i class="fab fa-linkedin"></i></a>
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-youtube"></i></a>
+  </div>
+</footer>
+
+
+
+ <script src="sign up.js"></script>
+
+ </div> 
+
+ <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init(
+    {
+    duration: 1000,   // مدة الحركة بالمللي ثانية (1 ثانية)
+    once: true,       // الحركة تظهر مرة واحدة فقط
+    delay: 200        // تأخير قبل بدء الحركة
+  }
+  ); // لتفعيل المكتبة
+
+  // Check for saved theme preference on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+    }
+  });
+</script>
+ 
+</body>
+</html>

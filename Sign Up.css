@@ -1,0 +1,556 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Yatra+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+
+*{
+    font-family: 'yatra one', cursive;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+/*ده الخلفيه */
+body {
+  background: black;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: 'Poppins', sans-serif;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+
+.container {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-size: 10vw;
+  color: white;
+}
+
+/* HEADER */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    background-color: #22222200;
+    color: white;
+    padding: 10px 50px;
+    direction: ltr;
+}
+
+/*ده كود تعديل المنيوي الفي تلات شروط */
+.menu-icon {
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s, color 0.3s;
+    position: relative;
+    padding: 5px 15px;
+}
+
+.menu-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(28, 28, 29, 0);
+    border-radius: 12px;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.menu-icon:hover::after {
+    width: 100%;
+    height: 100%;
+}
+
+.side-menu {
+    position: fixed;
+    right: -250px;
+    top: 0;
+    width: 250px;
+    height: 50%;
+    background-color: rgba(41, 44, 44, 0);
+    color: white;
+    transition: right 0.3s;
+    padding-top: 90px;
+    z-index: 999;
+    border-radius: 12px;
+}
+
+.side-menu ul {
+    list-style: none;
+}
+
+.side-menu ul li a {
+    display: block;
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.3s, color 0.3s;
+    position: relative;
+}
+
+.side-menu ul li a::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(28, 28, 29, 0.974);
+    border-radius: 12px;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.side-menu ul li a:hover {
+    color: #e0e7ee;
+    transform: scale(1.1);
+}
+
+.side-menu ul li a:hover::after {
+    width: 100%;
+    height: 100%;
+}
+
+main {
+    padding: 80px 20px 20px 20px;
+    transition: transform 0.3s;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.hero-gif {
+    width: 300px;
+    height: auto;
+    margin-top: 20px;
+}
+
+.content {
+    margin-bottom: 30px;
+}
+
+/* LOGO */
+.logo {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.logo span {
+  display: inline-block;
+  animation: bounce 0.6s infinite alternate;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.logo span:nth-child(1) { animation-delay: 0s; }
+.logo span:nth-child(2) { animation-delay: 0.1s; }
+.logo span:nth-child(3) { animation-delay: 0.2s; }
+.logo span:nth-child(4) { animation-delay: 0.3s; }
+.logo span:nth-child(5) { animation-delay: 0.4s; }
+.logo span:nth-child(6) { animation-delay: 0.5s; }
+.logo span:nth-child(7) { animation-delay: 0.6s; }
+
+@keyframes bounce {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
+/*ده عشان تسيق الزراير الفي الهيدر*/
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.btn-17,
+.btn-17 *,
+.btn-17 :after,
+.btn-17 :before,
+.btn-17:after,
+.btn-17:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+
+.btn-17 {
+  -webkit-tap-highlight-color: transparent;
+  background-color: #00000037;
+  background-image: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 100%;
+  font-weight: 900;
+  line-height: 1.5;
+  text-transform: uppercase;
+  border-radius: 99rem;
+  border-width: 2px;
+  padding: 0.8rem 3rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  text-decoration: none;
+}
+
+.btn-17 .text-container {
+  display: block;
+  mix-blend-mode: difference;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-17 .text {
+  display: block;
+  position: relative;
+}
+
+.btn-17:hover .text {
+  animation: move-up-alternate 0.3s forwards;
+}
+
+@keyframes move-up-alternate {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(80%);
+  }
+  51% {
+    transform: translateY(-80%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.btn-17:after,
+.btn-17:before {
+  --skew: 0.2;
+  background: #ffffff;
+  content: "";
+  display: block;
+  height: 102%;
+  pointer-events: none;
+  position: absolute;
+  top: -104%;
+  transform: skew(calc(150deg * var(--skew))) translateY(var(--progress, 0));
+  transition: transform 0.2s ease;
+  width: 100%;
+  z-index: -1;
+}
+
+.btn-17:before {
+  left: calc(-50% - 50% * var(--skew));
+}
+
+.btn-17:after {
+  left: calc(50% + 50% * var(--skew));
+  top: 102%;
+}
+
+.btn-17:hover:before {
+  --progress: 100%;
+}
+
+.btn-17:hover:after {
+  --progress: -102%;
+}
+
+/* تسجيل الدخول - Sign Section */
+.Sign {
+    font-family: 'Yatra One', cursive;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    direction: rtl;
+}
+
+.form-container {
+    background: rgba(255, 255, 255, 0.248);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    width: 100%;
+    max-width: 380px;
+    transform: scale(0.85);
+    margin: 20px auto;
+}
+
+.form-header {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+.form-body {
+    padding: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 700;
+    color: #d5dbe59e;
+    font-size: 16px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    background: white;
+    direction: rtl;
+    text-align: right;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.date-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    direction: rtl;
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6b7280;
+    font-size: 14px;
+    z-index: 2;
+}
+
+.input-field.pr-8 {
+    padding-right: 35px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 8px;
+    direction: rtl;
+}
+
+.submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px -3px rgba(79, 172, 254, 0.4);
+}
+
+.tech-decoration {
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.tech-1 {
+    top: 15%;
+    left: 8%;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    opacity: 0.08;
+    border-radius: 50%;
+    filter: blur(15px);
+}
+
+.tech-2 {
+    bottom: 15%;
+    right: 8%;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    opacity: 0.08;
+    border-radius: 50%;
+    filter: blur(18px);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(3deg); }
+}
+
+.floating-icon {
+    animation: float 5s ease-in-out infinite;
+}
+
+/* Footer */
+footer {
+  background-color: #222222;
+  color: rgb(108, 124, 123);
+  padding: 2em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-tittl {
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.footer-tittl span {
+  color: rgb(48, 243, 230);
+}
+
+.footer .social-icons a{
+  font-size: 1.3em;
+  padding: 0 12px 0 0;
+}
+
+section {
+  scroll-margin-top: 100px;
+}
+
+.contact .icon {
+  font-size: 4.5em;
+}
+
+.card:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    padding: 0 10px;
+  }
+
+  .container .main {
+    flex-direction: column;
+    padding: 50px 20px;
+    text-align: center;
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+    margin: 20px 0;
+  }
+
+  h2, h3, .title {
+    font-size: 1.4em;
+    text-align: center;
+  }
+
+  .main-btn {
+    font-size: 1em;
+    padding: 0.7em 1.5em;
+  }
+
+  .icon {
+    font-size: 5em;
+  }
+
+  .main-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 10px 20px;
+  }
+
+  .btn-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .project-image img {
+    width: 100%;
+  }
+
+  .Sign {
+    padding: 10px;
+  }
+
+  .form-container {
+    max-width: 100%;
+    margin: 0 10px;
+  }
+
+  .date-group {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .input-field {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-header {
+    padding: 15px;
+  }
+
+  .form-body {
+    padding: 15px;
+  }
+
+  .input-group {
+    margin-bottom: 12px;
+  }
+
+  .submit-btn {
+    padding: 10px;
+    font-size: 13px;
+  }
+}

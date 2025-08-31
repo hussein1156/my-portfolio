@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تبديل الليل والنهار</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+            transition: background 1.5s ease-in-out;
+        }
+
+        /* وضع النهار */
+        .day-mode {
+            background: linear-gradient(135deg, #87CEEB 0%, #E0F7FA 50%, #B3E5FC 100%);
+        }
+
+        /* وضع الليل */
+        .night-mode {
+            background: linear-gradient(135deg, #0f0c29 0%, #24243e 50%, #302b63 100%);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .toggle-btn {
+            position: relative;
+            width: 120px;
+            height: 60px;
+            border-radius: 50px;
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border: none;
+            cursor: pointer;
+            box-shadow: 5px 5px 20px rgba(0,0,0,0.15),
+                        -5px -5px 15px rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .toggle-btn:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 8px 8px 25px rgba(0,0,0,0.2),
+                        -8px -8px 20px rgba(255,255,255,0.15);
+        }
+
+        .btn-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+        }
+
+        .sun-icon, .moon-icon {
+            font-size: 24px;
+            transition: all 0.4s ease-in-out;
+            filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+        }
+
+        .sun-icon {
+            color: #FF6B35;
+            text-shadow: 0 0 15px rgba(255, 107, 53, 0.8);
+        }
+
+        .moon-icon {
+            color: #E0E0E0;
+            text-shadow: 0 0 15px rgba(224, 224, 224, 0.7);
+        }
+
+        .mode-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 20px;
+            padding: 12px 25px;
+            border-radius: 30px;
+            backdrop-filter: blur(15px);
+            transition: all 0.4s ease;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .day-text {
+            color: #2c3e50;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+
+        .night-text {
+            color: #f8f9fa;
+            background: rgba(0, 0, 0, 0.25);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        /* عناصر الخلفية */
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* عناصر النهار */
+        .sun {
+            position: absolute;
+            top: 20%;
+            right: 15%;
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle, #FFD700 0%, #FF8C00 60%, #FF6B35 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 80px rgba(255, 215, 0, 0.9),
+                        0 0 120px rgba(255, 140, 0, 0.6);
+            transition: all 1.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 1;
+        }
+
+        .sun-rays {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, transparent 40%, rgba(255,215,0,0.3) 100%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+        }
+
+        .cloud:nth-child(1) { top: 15%; left: 5%; width: 70px; height: 25px; animation-delay: 0s; }
+        .cloud:nth-child(2) { top: 25%; right: 10%; width: 90px; height: 30px; animation-delay: 2s; }
+        .cloud:nth-child(3) { top: 35%; left: 20%; width: 80px; height: 28px; animation-delay: 4s; }
+        .cloud:nth-child(4) { top: 55%; right: 8%; width: 100px; height: 35px; animation-delay: 6s; }
+        .cloud:nth-child(5) { top: 65%; left: 15%; width: 85px; height: 30px; animation-delay: 8s; }
+        .cloud:nth-child(6) { top: 45%; right: 25%; width: 75px; height: 25px; animation-delay: 10s; }
+
+        /* عناصر الليل */
+        .moon {
+            position: absolute;
+            top: -120px;
+            left: 20%;
+            width: 75px;
+            height: 75px;
+            background: radial-gradient(circle, #F8F9FA 0%, #E9ECEF 40%, #DEE2E6 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(248, 249, 250, 0.8),
+                        0 0 100px rgba(233, 236, 239, 0.4);
+            transition: all 1.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 1;
+        }
+
+        .moon-crater {
+            position: absolute;
+            background: rgba(222, 226, 230, 0.6);
+            border-radius: 50%;
+        }
+
+        .moon-crater:nth-child(1) { top: 25%; left: 30%; width: 12px; height: 12px; }
+        .moon-crater:nth-child(2) { top: 40%; right: 25%; width: 8px; height: 8px; }
+        .moon-crater:nth-child(3) { bottom: 30%; left: 40%; width: 15px; height: 15px; }
+        .moon-crater:nth-child(4) { bottom: 45%; right: 35%; width: 10px; height: 10px; }
+
+        .star {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            animation: twinkle 4s infinite ease-in-out;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+
+        /* توليد النجوم - 25 نجمة موزعة بشكل طبيعي */
+        .star:nth-child(1) { top: 10%; left: 8%; width: 2px; height: 2px; animation-delay: 0s; }
+        .star:nth-child(2) { top: 15%; right: 12%; width: 3px; height: 3px; animation-delay: 0.8s; }
+        .star:nth-child(3) { top: 20%; left: 15%; width: 2px; height: 2px; animation-delay: 1.6s; }
+        .star:nth-child(4) { top: 25%; right: 20%; width: 4px; height: 4px; animation-delay: 2.4s; }
+        .star:nth-child(5) { top: 30%; left: 25%; width: 3px; height: 3px; animation-delay: 3.2s; }
+        .star:nth-child(6) { top: 35%; right: 30%; width: 2px; height: 2px; animation-delay: 4s; }
+        .star:nth-child(7) { top: 40%; left: 35%; width: 3px; height: 3px; animation-delay: 4.8s; }
+        .star:nth-child(8) { top: 45%; right: 40%; width: 2px; height: 2px; animation-delay: 5.6s; }
+        .star:nth-child(9) { top: 50%; left: 45%; width: 4px; height: 4px; animation-delay: 6.4s; }
+        .star:nth-child(10) { top: 55%; right: 50%; width: 3px; height: 3px; animation-delay: 7.2s; }
+        .star:nth-child(11) { top: 60%; left: 55%; width: 2px; height: 2px; animation-delay: 8s; }
+        .star:nth-child(12) { top: 65%; right: 60%; width: 3px; height: 3px; animation-delay: 8.8s; }
+        .star:nth-child(13) { top: 70%; left: 65%; width: 4px; height: 4px; animation-delay: 9.6s; }
+        .star:nth-child(14) { top: 75%; right: 70%; width: 2px; height: 2px; animation-delay: 10.4s; }
+        .star:nth-child(15) { top: 80%; left: 75%; width: 3px; height: 3px; animation-delay: 11.2s; }
+        .star:nth-child(16) { top: 85%; right: 80%; width: 2px; height: 2px; animation-delay: 12s; }
+        .star:nth-child(17) { top: 90%; left: 85%; width: 4px; height: 4px; animation-delay: 12.8s; }
+        .star:nth-child(18) { top: 20%; right: 5%; width: 3px; height: 3px; animation-delay: 13.6s; }
+        .star:nth-child(19) { top: 30%; left: 10%; width: 2px; height: 2px; animation-delay: 14.4s; }
+        .star:nth-child(20) { top: 40%; right: 15%; width: 4px; height: 4px; animation-delay: 15.2s; }
+        .star:nth-child(21) { top: 50%; left: 20%; width: 3px; height: 3px; animation-delay: 16s; }
+        .star:nth-child(22) { top: 60%; right: 25%; width: 2px; height: 2px; animation-delay: 16.8s; }
+        .star:nth-child(23) { top: 70%; left: 30%; width: 3px; height: 3px; animation-delay: 17.6s; }
+        .star:nth-child(24) { top: 80%; right: 35%; width: 4px; height: 4px; animation-delay: 18.4s; }
+        .star:nth-child(25) { top: 90%; left: 40%; width: 3px; height: 3px; animation-delay: 19.2s; }
+
+        .shooting-star {
+            position: absolute;
+            background: linear-gradient(to right, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.9) 30%, 
+                rgba(255, 255, 255, 0.6) 70%, 
+                transparent 100%);
+            animation: shoot 12s infinite ease-in-out;
+            border-radius: 2px;
+        }
+
+        .shooting-star:nth-child(1) { top: 15%; left: -100px; width: 80px; height: 2px; animation-delay: 5s; }
+        .shooting-star:nth-child(2) { top: 35%; left: -150px; width: 100px; height: 3px; animation-delay: 18s; }
+        .shooting-star:nth-child(3) { top: 60%; left: -120px; width: 90px; height: 2px; animation-delay: 32s; }
+
+        /* الرسوم المتحركة */
+        @keyframes float {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(25px) translateY(-12px); }
+            50% { transform: translateX(-18px) translateY(18px); }
+            75% { transform: translateX(30px) translateY(-8px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            25% { opacity: 0.8; transform: scale(1.1); }
+            50% { opacity: 1; transform: scale(1.2); }
+            75% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        @keyframes shoot {
+            0% { transform: translateX(-100px) translateY(0); opacity: 0; }
+            5% { opacity: 1; }
+            15% { transform: translateX(300px) translateY(50px); opacity: 0.8; }
+            100% { transform: translateX(600px) translateY(100px); opacity: 0; }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .toggle-btn {
+                width: 100px;
+                height: 50px;
+            }
+
+            .sun, .moon {
+                width: 70px;
+                height: 70px;
+            }
+
+            .sun-rays {
+                width: 100px;
+                height: 100px;
+            }
+
+            .mode-text {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+
+            .cloud {
+                transform: scale(0.8);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .toggle-btn {
+                width: 80px;
+                height: 40px;
+            }
+
+            .sun-icon, .moon-icon {
+                font-size: 20px;
+            }
+
+            .sun, .moon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .sun-rays {
+                width: 80px;
+                height: 80px;
+            }
+
+            .mode-text {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+
+            .cloud {
+                transform: scale(0.7);
+            }
+        }
+    </style>
+</head>
+<body class="day-mode">
+    <div class="background-elements">
+        <!-- عناصر النهار -->
+        <div class="sun">
+            <div class="sun-rays"></div>
+        </div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+
+        <!-- عناصر الليل -->
+        <div class="moon">
+            <div class="moon-crater"></div>
+            <div class="moon-crater"></div>
+            <div class="moon-crater"></div>
+            <div class="moon-crater"></div>
+        </div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+    </div>
+
+    <div class="container">
+        <button class="toggle-btn" id="themeToggle">
+            <div class="btn-content">
+                <span class="sun-icon">☀️</span>
+                <span class="moon-icon">🌙</span>
+            </div>
+        </button>
+        <div class="mode-text day-text" id="modeText">وضع النهار</div>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const modeText = document.getElementById('modeText');
+        const sun = document.querySelector('.sun');
+        const moon = document.querySelector('.moon');
+        const clouds = document.querySelectorAll('.cloud');
+        const stars = document.querySelectorAll('.star');
+        const shootingStars = document.querySelectorAll('.shooting-star');
+
+        let isNightMode = false;
+
+        // تهيئة العناصر بناءً على الوضع الحالي
+        function initializeElements() {
+            if (isNightMode) {
+                // إخفاء عناصر النهار، إظهار عناصر الليل
+                sun.style.opacity = '0';
+                clouds.forEach(cloud => cloud.style.opacity = '0');
+                moon.style.top = '20%';
+                moon.style.opacity = '1';
+                stars.forEach(star => star.style.opacity = '1');
+                shootingStars.forEach(star => star.style.opacity = '1');
+            } else {
+                // إظهار عناصر النهار، إخفاء عناصر الليل
+                sun.style.top = '20%';
+                sun.style.opacity = '1';
+                clouds.forEach(cloud => cloud.style.opacity = '1');
+                moon.style.top = '-120px';
+                moon.style.opacity = '0';
+                stars.forEach(star => star.style.opacity = '0');
+                shootingStars.forEach(star => star.style.opacity = '0');
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            isNightMode = !isNightMode;
+
+            if (isNightMode) {
+                // الانتقال إلى وضع الليل
+                body.classList.remove('day-mode');
+                body.classList.add('night-mode');
+                modeText.textContent = 'Night Mode'; //تغير جمله Night Mode
+                modeText.classList.remove('day-text');
+                modeText.classList.add('night-text');
+
+                // تحريك الشمس إلى الأسفل وظهور القمر
+                sun.style.top = '120%';
+                setTimeout(() => {
+                    moon.style.top = '20%';
+                }, 300);
+                
+                // إخفاء السحب وإظهار النجوم والشهب
+                clouds.forEach(cloud => cloud.style.opacity = '0');
+                setTimeout(() => {
+                    stars.forEach(star => star.style.opacity = '1');
+                    shootingStars.forEach(star => star.style.opacity = '1');
+                }, 500);
+
+            } else {
+                // الانتقال إلى وضع النهار
+                body.classList.remove('night-mode');
+                body.classList.add('day-mode');
+                modeText.textContent = 'Light Mode';
+                modeText.classList.remove('night-text');
+                modeText.classList.add('day-text');
+
+                // تحريك القمر إلى الأعلى وظهور الشمس
+                moon.style.top = '-120px';
+                setTimeout(() => {
+                    sun.style.top = '20%';
+                }, 300);
+                
+                // إخفاء النجوم والشهب وإظهار السحب
+                stars.forEach(star => star.style.opacity = '0');
+                shootingStars.forEach(star => star.style.opacity = '0');
+                setTimeout(() => {
+                    clouds.forEach(cloud => cloud.style.opacity = '1');
+                }, 500);
+            }
+        });
+
+        // تهيئة عند التحميل
+        initializeElements();
+    </script>
+</body>
+</html>
+

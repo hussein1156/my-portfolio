@@ -1,0 +1,807 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Yatra+One&display=swap');
+*{
+    font-family: 'yatra one', cursive;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+/*ده الخلفيه */
+body {
+  background: black;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;  /* تمكين السكروول */
+  font-family: 'Poppins', sans-serif;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;  /* خلف كل شيء */
+}
+
+.container {
+  width: 100%;
+  position: relative;  /* بدل absolute */
+  z-index: 1;
+}
+
+
+.title {
+  font-size: 10vw;
+  color: white;
+}
+
+canvas {
+  width: 100%;
+}
+
+
+
+/* HEADER */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000; /* نفس z-index للهيدر الأصلي */
+    background-color: #22222200; /* نفس لون header */
+    color: white;
+    padding: 10px 50px; /* خلي البادينج مزيج بين الاثنين */
+    direction: ltr; /* عشان الشعار على الشمال وأيقونة التلات خطوط على اليمين */
+}
+
+
+/*ده كود تعديل المنوي الفي تلات شروط */
+.menu-icon {
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s, color 0.3s;
+    position: relative;
+    padding: 5px 15px; /* مساحة داخلية للمستطيل */
+}
+
+/* المستطيل خلف الأيقونة */
+.menu-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(28, 28, 29, 0.396); /* لون أزرق خفيف */
+    border-radius: 12px; /* حواف دائرية */
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+/* تأثير hover */
+
+
+.menu-icon:hover::after {
+    width: 100%;   /* تغطية النص بالكامل */
+    height: 100%;
+}
+
+
+.side-menu {
+    position: fixed;
+    right: -250px;
+    top: 0;
+    width: 250px;
+    height: 50%;
+    background-color: rgba(41, 44, 44, 0);
+    color: white;
+    transition: right 0.3s;
+    padding-top: 90px;
+    z-index: 999;
+     border-radius: 12px;
+}
+
+.side-menu ul {
+    list-style: none;
+}
+
+.side-menu ul li a {
+    display: block;
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.3s, color 0.3s;
+    position: relative; /* مهم لإظهار المستطيل خلف الرابط */
+}
+
+/* المستطيل خلف الرابط */
+.side-menu ul li a::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(28, 28, 29, 0.974); /* لون أزرق شفاف */
+    border-radius: 12px; /* حواف دائرية */
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    z-index: -1; /* تحت النص */
+}
+
+/* تأثير hover */
+.side-menu ul li a:hover {
+    color: #e0e7ee; /* لون أزرق */
+    transform: scale(1.1); /* تكبير خفيف */
+}
+
+.side-menu ul li a:hover::after {
+    width: 100%;  /* يغطي النص بالكامل */
+    height: 100%;
+}
+
+main {
+    padding: 80px 20px 20px 20px;
+    transition: transform 0.3s;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.hero-gif {
+    width: 300px;
+    height: auto;
+    margin-top: 20px;
+}
+
+.content {
+    margin-bottom: 30px;
+}
+
+
+
+
+/* LOGO */
+.logo {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* تنطيط حروف اللوجو */
+.logo span {
+  display: inline-block;
+  animation: bounce 0.6s infinite alternate;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.logo span:nth-child(1) { animation-delay: 0s; }
+.logo span:nth-child(2) { animation-delay: 0.1s; }
+.logo span:nth-child(3) { animation-delay: 0.2s; }
+.logo span:nth-child(4) { animation-delay: 0.3s; }
+.logo span:nth-child(5) { animation-delay: 0.4s; }
+.logo span:nth-child(6) { animation-delay: 0.5s; }
+.logo span:nth-child(7) { animation-delay: 0.6s; }
+
+@keyframes bounce {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+ 
+/*ده عشان تسيق الزراير الفي الهيدر*/
+/* BUTTON GROUP */
+.btn-group {
+  display: flex;
+  justify-content: flex-end; /* يخلي الأزرار على أقصى اليمين */
+  gap: 20px;
+
+}
+
+/* Uiverse.io Button - btn-17 */
+.btn-17,
+.btn-17 *,
+.btn-17 :after,
+.btn-17 :before,
+.btn-17:after,
+.btn-17:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+
+.btn-17 {
+  -webkit-tap-highlight-color: transparent;
+  background-color: #00000037;
+  background-image: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 100%;
+  font-weight: 900;
+  line-height: 1.5;
+  text-transform: uppercase;
+  border-radius: 99rem;
+  border-width: 2px;
+  padding: 0.8rem 3rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  text-decoration: none;
+
+}
+
+.btn-17 .text-container {
+  display: block;
+  mix-blend-mode: difference;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-17 .text {
+  display: block;
+  position: relative;
+}
+
+.btn-17:hover .text {
+  animation: move-up-alternate 0.3s forwards;
+}
+
+@keyframes move-up-alternate {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(80%);
+  }
+  51% {
+    transform: translateY(-80%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.btn-17:after,
+.btn-17:before {
+  --skew: 0.2;
+  background: #ffffff;
+  content: "";
+  display: block;
+  height: 102%;
+  pointer-events: none;
+  position: absolute;
+  top: -104%;
+  transform: skew(calc(150deg * var(--skew))) translateY(var(--progress, 0));
+  transition: transform 0.2s ease;
+  width: 100%;
+  z-index: -1;
+}
+
+.btn-17:before {
+  left: calc(-50% - 50% * var(--skew));
+}
+
+.btn-17:after {
+  left: calc(50% + 50% * var(--skew));
+  top: 102%;
+}
+
+.btn-17:hover:before {
+  --progress: 100%;
+}
+
+.btn-17:hover:after {
+  --progress: -102%;
+}
+
+/*/////////////////////////////////ده كده العنوان الفي اول الصفحه //////////*//***************/
+
+
+ section{
+    padding: 100px 200px;
+}
+
+.container .main{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    
+}
+
+ .main h2 {
+    color: papayawhip;
+    font-size: 1.4em;
+    font-weight: 500;
+}
+ .main h2 span  {
+display: inline-block;
+margin-top: 10px;
+color: rgb(48, 243, 230);
+font-size: 3em;
+font-weight: 600;
+}
+
+ .main h3{
+  color:papayawhip ;
+  font-size: 2em;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+}
+
+ .main-btn{
+  color: papayawhip;
+  background: black;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: 600;
+  display: inline-block;
+  padding: 0.93775em 2.1875em;
+  letter-spacing: 1px;
+  border-radius: 15px;
+  margin-bottom: 40px;
+  transition: 0.7s;
+} 
+
+ .main-btn:hover{
+  background-color: rgba(245, 222, 179, 0.242);
+  transform: scale(1.1);
+}
+
+ .social-icons a {
+  color: wheat;
+font-size: 1.7em;
+padding-right: 30px;
+}
+
+/*ده الكود بتاع الاسكيليز */
+
+
+.skills-counters {
+  padding: 50px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.title {
+  text-align: center;
+  color: rgb(80, 255, 243);
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+
+/* Skills Bar */
+.skill {
+  margin-bottom: 20px;
+}
+
+.skill p {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.skill-bar {
+  background: #333;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.skill-bar span {
+  display: block;
+  height: 12px;
+  background: rgb(48, 243, 230);
+  width: 0;
+  transition: width 1.5s ease;
+}
+
+ .label{
+  color: snow;
+}
+/* Counters */
+.counters {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 50px;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.counter {
+  font-size: 3em;
+  color: rgb(48, 243, 230);
+  font-weight: bold;
+}
+
+.label {
+  margin-top: 10px;
+  font-size: 1.2em;
+}
+
+
+
+/*ده الكرت الفي الخدمات */
+.title{
+  display: flex;
+  justify-content: center;
+  color: rgb(48, 243, 230);
+  font-size: 2.2em;
+  font-weight: 800;
+margin-bottom: 30px;
+}
+
+.content{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 20px;
+}
+
+.card{
+background-color: rgb(48, 243, 230);
+width: 250px;
+box-shadow: 0 5px 25px rgba(163, 156, 156, 0.356);
+border-radius: 10px;
+padding: 25px;
+margin: 15px;
+transition: 0.7s;
+}
+
+.card:hover{
+  transform: scale(1.1);
+}
+.icon {
+  color: #ffffff;
+  font-size: 8em;
+  text-align: center;
+}
+
+.info{
+    text-align: center;
+}
+
+.info h3{
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: 700;
+    margin: 10px;
+}
+
+/*.projects {
+  background-color: aqua;      ده الخلفيه بتاعت الكرت *تبع الخلفيه بتاع البروجيكت 
+}*/
+
+/* هنا كروت المشاريع */
+
+.projects .content {
+  margin-top: 30px;
+}
+
+.project-cord{
+  background-color: rgb(48, 243, 230);
+  box-shadow:0 5px 25px rgba(255, 246, 246, 0.496);
+  border: 7px solid #37fbfb;
+  min-height: 14em;
+  border-radius: 15px;
+  margin: 20px;
+  transition: 0.7s ease;
+}
+
+.project-cord:hover{
+  transform: scale(1.1);
+}
+
+.project-cord:hover .project-image{
+opacity: 0.9;
+}
+
+.project-image img{
+  width: 500px;
+  height: auto;
+}
+
+.project-info {
+  padding: 1em;
+}
+
+.project-category {
+font-size: 0.8em;
+color: black;
+}
+
+.project-title {
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+  font-weight: 800;
+  margin-top: 10px;
+}
+
+.more-details {
+  text-decoration: none;
+  color: #fff;
+}
+
+.more-details:hover{
+  color: #1b1f1e;
+}
+
+.content .project-info p {
+  font-size: 1.5em;
+  display: flex;
+  justify-content: center;
+}
+
+
+/* ده تعديل الزارير بتاع المشروع */
+
+.filter-buttons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.filter-buttons button {
+  background: transparent;
+  border: 2px solid rgb(48, 243, 230);
+  color: rgb(48, 243, 230);
+  padding: 8px 15px;
+  margin: 5px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.filter-buttons button.active,
+.filter-buttons button:hover {
+  background: rgb(48, 243, 230);
+  color: black;
+}
+
+/* ده تبع الجمله المكتوب غيه اضغط علي الزورار */
+
+.placeholder {
+  text-align: center;
+  color: rgb(48, 243, 230);
+  font-size: 1.2em;
+  margin-top: 50px;
+}
+
+.placeholder i {
+  font-size: 3em;
+  display: block;
+  margin-bottom: 10px;
+}
+
+
+/*التواصل */
+
+.contact {
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+}
+.ring {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ring i {
+  position: absolute;
+  inset: 0;
+  border: 2px solid #fff;
+  transition: 0.5s;
+}
+.ring i:nth-child(1) {
+  border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+  animation: animate 6s linear infinite;
+}
+.ring i:nth-child(2) {
+  border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+  animation: animate 4s linear infinite;
+}
+.ring i:nth-child(3) {
+  border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+  animation: animate2 10s linear infinite;
+}
+.ring:hover i {
+  border: 6px solid var(--clr);
+  filter: drop-shadow(0 0 20px var(--clr));
+}
+@keyframes animate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes animate2 {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+.login {
+  position: absolute;
+  width: 300px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.login h2 {
+  font-size: 2em;
+  color: #fff;
+}
+.login .inputBx {
+  position: relative;
+  width: 100%;
+}
+.login .inputBx input {
+  position: relative;
+  width: 100%;
+  padding: 12px 20px;
+  background: transparent;
+  border: 2px solid #fff;
+  border-radius: 40px;
+  font-size: 1.2em;
+  color: #fff;
+  box-shadow: none;
+  outline: none;
+}
+.login .inputBx input[type="submit"] {
+  background: linear-gradient(rgb(52, 255, 225));
+  border: none;
+  cursor: pointer;
+}
+.login .inputBx input::placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+/* رسائل النجاح أو الفشل */
+#form-status {
+  font-weight: bold;
+  display: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+#form-status.success {
+  color: green;
+  background-color: #dde9e0;
+}
+#form-status.error {
+  color: red;
+  background-color: #f8d7da;
+}
+
+
+/*ده اخر حاجه في الصفحه footer*/
+
+footer {
+  background-color: rgba(71, 47, 169, 0.29);
+  color: rgb(108, 124, 123);
+  padding: 2em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-tittl {
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.footer-tittl span {
+  color: rgb(48, 243, 230);
+}
+
+.footer .social-icons a{
+  font-size: 1.3em;
+  padding: 0 12px 0 0;
+}
+
+section {
+  scroll-margin-top: 100px;
+}
+
+
+/*التواصل */
+.contact .icon {
+  font-size: 4.5em;
+}
+
+footer {
+  background-color: #222222;
+  color: rgb(108, 124, 123);
+  padding: 2em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-tittl {
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.footer-tittl span {
+  color: rgb(48, 243, 230);
+}
+
+.footer .social-icons a{
+  font-size: 1.3em;
+  padding: 0 12px 0 0;
+}
+
+section {
+  scroll-margin-top: 100px;
+}
+
+/* آخر تنسيقات الكروت */
+.card:hover {
+  transform: scale(1.1);
+}
+
+
+/* هنا حط الـ media query */
+/* ===== Responsive Design for Mobile Devices ===== */
+@media (max-width: 768px) {
+  body {
+    padding: 0 10px;
+  }
+
+  .container .main {
+    flex-direction: column;
+    padding: 50px 20px;
+    text-align: center;
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+    margin: 20px 0;
+  }
+
+  h2, h3, .title {
+    font-size: 1.4em;
+    text-align: center;
+  }
+
+  .main-btn {
+    font-size: 1em;
+    padding: 0.7em 1.5em;
+  }
+
+  .icon {
+    font-size: 5em;
+  }
+
+  .main-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .btn-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .project-image img {
+    width: 100%;
+  }
+}
