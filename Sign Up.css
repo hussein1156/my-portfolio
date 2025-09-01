@@ -452,6 +452,7 @@ footer {
 .footer .social-icons a{
   font-size: 1.3em;
   padding: 0 12px 0 0;
+  color: #ffffff;
 }
 
 section {
@@ -472,67 +473,12 @@ section {
     padding: 0 10px;
   }
 
-  .container .main {
-    flex-direction: column;
-    padding: 50px 20px;
-    text-align: center;
-  }
-
-  .content {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .card {
-    width: 90%;
-    margin: 20px 0;
-  }
-
-  h2, h3, .title {
-    font-size: 1.4em;
-    text-align: center;
-  }
-
-  .main-btn {
-    font-size: 1em;
-    padding: 0.7em 1.5em;
-  }
-
-  .icon {
-    font-size: 5em;
-  }
-
-  .main-header {
-    flex-direction: column;
-    text-align: center;
-    padding: 10px 20px;
+  .menu-icon {
+    display: none;
   }
 
   .btn-group {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .project-image img {
-    width: 100%;
-  }
-
-  .Sign {
-    padding: 10px;
-  }
-
-  .form-container {
-    max-width: 100%;
-    margin: 0 10px;
-  }
-
-  .date-group {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .input-field {
-    font-size: 16px;
+    display: none;
   }
 }
 

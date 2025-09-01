@@ -146,10 +146,10 @@ canvas {
     height: 100%;
 }
 
-main {
-    padding: 80px 20px 20px 20px;
+  main {
+    padding: 120px 20px 20px 20px;
     transition: transform 0.3s;
-}
+  }
 
 .hero {
     text-align: center;
@@ -754,11 +754,109 @@ section {
 }
 
 
-/* هنا حط الـ media query */
 /* ===== Responsive Design for Mobile Devices ===== */
 @media (max-width: 768px) {
   body {
     padding: 0 10px;
+  }
+
+  .main-header {
+    padding: 15px 20px;
+    flex-direction: column;
+    text-align: center;
+    height: auto;
+    min-height: 80px;
+  }
+
+  .logo {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .logo span {
+    font-size: 20px;
+  }
+
+  .btn-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .btn-17 {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.8em;
+    min-width: 100px;
+  }
+
+  .menu-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    padding: 8px 12px;
+  }
+
+ 
+  .side-menu {
+    position: fixed;
+    right: -250px;
+    top: 0;
+    width: 100px;
+    height: 10%;
+    background-color: rgba(41, 44, 44, 0); /* أغمق عشان يبان في الموبايل */
+    color: white;
+    transition: right 0.3s;
+    margin-top: 50px;   /* ينزل تحت */
+    z-index: 999;
+    border-radius: 12px;
+  }
+
+  .side-menu ul {
+    list-style: none;
+  }
+
+  .side-menu ul li a {
+    display: block;
+    padding: 12px 15px; /* أصغر من الديسكتوب */
+    font-size: 0.9em;    /* تصغير الخط */
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.3s, color 0.3s;
+    position: relative;
+  }
+
+  .side-menu ul li a::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(28, 28, 29, 0.9);
+    border-radius: 12px;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    z-index: -1;
+  }
+
+  .side-menu ul li a:hover {
+    color: #e0e7ee;
+    transform: scale(1.05); /* تكبير أقل عشان يناسب الموبايل */
+  }
+
+  .side-menu ul li a:hover::after {
+    width: 100%;
+    height: 100%;
+  }
+
+
+
+  .side-menu ul li a {
+    padding: 12px 15px;
+    font-size: 0.9em;
   }
 
   .container .main {
@@ -767,41 +865,197 @@ section {
     text-align: center;
   }
 
-  .content {
-    flex-direction: column;
-    align-items: center;
+  section.main {
+     margin-top: 300px; 
+  }
+ 
+
+
+  .main h2 {
+    font-size: 1.2em;
+    margin-bottom: 20px;
   }
 
-  .card {
-    width: 90%;
-    margin: 20px 0;
+  .main h2 span {
+    font-size: 2em;
   }
 
-  h2, h3, .title {
-    font-size: 1.4em;
-    text-align: center;
+  .main h3 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
   }
 
   .main-btn {
     font-size: 1em;
     padding: 0.7em 1.5em;
+    margin-bottom: 20px;
+  }
+
+  .social-icons a {
+    font-size: 1.5em;
+    padding-right: 20px;
+  }
+
+  section {
+    padding: 50px 20px;
+  }
+
+  .skills-counters {
+    padding: 30px 20px;
+  }
+
+  .title {
+    font-size: 1.8em;
+  }
+
+  .counters {
+    gap: 30px;
+  }
+
+  .counter {
+    font-size: 2em;
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .card {
+    width: 90%;
+    margin: 20px 0;
+    padding: 20px;
   }
 
   .icon {
     font-size: 5em;
   }
 
-  .main-header {
-    flex-direction: column;
-    text-align: center;
+  .info h3 {
+    font-size: 1em;
   }
 
-  .btn-group {
+  .projects .content {
     flex-direction: column;
-    gap: 10px;
+    align-items: center;
+  }
+
+  .project-cord {
+    width: 90%;
+    margin: 20px 0;
   }
 
   .project-image img {
     width: 100%;
+    height: auto;
+  }
+
+  .filter-buttons button {
+    padding: 6px 12px;
+    font-size: 0.9em;
+  }
+
+  .contact {
+    min-height: 80vh;
+  }
+
+  .ring {
+    width: 400px;
+    height: 400px;
+  }
+
+  .login {
+    width: 250px;
+  }
+
+  .login h2 {
+    font-size: 1.5em;
+  }
+
+  .login .inputBx input {
+    font-size: 1em;
+    padding: 10px 15px;
+  }
+
+  footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .footer .social-icons a {
+    padding: 0 10px;
   }
 }
+
+/* Additional media query for very small screens */
+@media (max-width: 480px) {
+  .main h2 {
+    font-size: 1em;
+    margin-bottom: 15px;
+  }
+
+  .main h2 span {
+    font-size: 1.5em;
+  }
+
+  .main h3 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+  }
+
+  .title {
+    font-size: 1.5em;
+  }
+
+  .counter {
+    font-size: 1.5em;
+  }
+
+  .card {
+    width: 95%;
+  }
+
+  .icon {
+    font-size: 4em;
+  }
+
+  .project-cord {
+    width: 95%;
+  }
+
+  .ring {
+    width: 300px;
+    height: 300px;
+  }
+
+  .login {
+    width: 200px;
+  }
+
+  .login h2 {
+    font-size: 1.2em;
+  }
+
+  .btn-17 {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.8em;
+  }
+
+  .main-btn {
+    font-size: 0.9em;
+    padding: 0.6em 1.2em;
+    margin-bottom: 15px;
+  }
+
+  .social-icons a {
+    font-size: 1.3em;
+    padding-right: 15px;
+  }
+
+  .footer .social-icons a {
+    font-size: 1.1em;
+  }
+}
+

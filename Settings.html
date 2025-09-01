@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإعدادات - تصميم عصري</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --border: #e5e7eb;
+            --card-bg: #ffffff;
+            --sidebar-bg: transparent;
+        }
+
+        .dark-mode {
+            --primary: #818cf8;
+            --primary-dark: #6366f1;
+            --secondary: #34d399;
+            --danger: #f87171;
+            --dark: #f3f4f6;
+            --light: #111827;
+            --gray: #9ca3af;
+            --border: #374151;
+            --card-bg: #1f2937;
+            --sidebar-bg: transparent;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: black;
+            min-height: 100vh;
+            padding: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .dark-mode body {
+            background: black;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+
+
+
+        .settings-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar-bg);
+            padding: 30px 0;
+            border-right: 1px solid var(--border);
+        }
+
+        .sidebar-header {
+            padding: 0 25px 20px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-header p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(99, 102, 241, 0.1);
+            border-left-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .nav-item i {
+            margin-left: 15px;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-header {
+            margin-bottom: 30px;
+        }
+
+        .section-header h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            background: var(--card-bg);
+            color: var(--dark);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        .profile-picture {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 20px auto;
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+        }
+
+        .profile-upload {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .profile-upload:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--gray);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 40px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .color-option.active {
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-option.active {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .theme-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .language-option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-option.active {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .flag {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .success-message {
+            background: var(--secondary);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .settings-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .nav-items {
+                display: flex;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            .nav-item {
+                white-space: nowrap;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+            .nav-item:hover, .nav-item.active {
+                border-left-color: transparent;
+                border-bottom-color: var(--primary);
+            }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <div class="settings-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-cog"></i> الإعدادات</h2>
+                <p>إدارة تفضيلات حسابك الشخصي</p>
+            </div>
+            <div class="nav-items">
+                <a href="#profile" class="nav-item active" data-section="profile">
+                    <i class="fas fa-user"></i>
+                    <span>الملف الشخصي</span>
+                </a>
+                <a href="#notifications" class="nav-item" data-section="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span>الإشعارات</span>
+                </a>
+                <a href="#privacy" class="nav-item" data-section="privacy">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>الخصوصية</span>
+                </a>
+                <a href="#appearance" class="nav-item" data-section="appearance">
+                    <i class="fas fa-palette"></i>
+                    <span>المظهر</span>
+                </a>
+                <a href="#language" class="nav-item" data-section="language">
+                    <i class="fas fa-globe"></i>
+                    <span>اللغة</span>
+                </a>
+                <a href="#general" class="nav-item" data-section="general">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>عام</span>
+                </a>
+                <a href="#danger" class="nav-item" data-section="danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>خطر</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- الملف الشخصي -->
+            <div class="section active" id="profile-section">
+                <div class="section-header">
+                    <h3>الملف الشخصي</h3>
+                    <p>إدارة معلومات حسابك وصورة الملف الشخصي</p>
+                </div>
+                <div class="card">
+                    <div class="profile-picture">
+                        <img src="https://placehold.co/120x120" alt="صورة الملف الشخصي" id="profile-img">
+                        <div class="profile-upload" onclick="document.getElementById('profile-upload').click()">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <input type="file" id="profile-upload" style="display: none;" accept="image/*">
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">الاسم الكامل</label>
+                            <input type="text" class="form-control" id="name" placeholder="أدخل اسمك الكامل">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" id="email" placeholder="example@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">رقم الهاتف</label>
+                            <input type="tel" class="form-control" id="phone" placeholder="05XXXXXXXX">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="showSuccess()">حفظ التغييرات</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- الإشعارات -->
+            <div class="section" id="notifications-section">
+                <div class="section-header">
+                    <h3>الإشعارات</h3>
+                    <p>تحكم في الإشعارات التي تتلقاها</p>
+                </div>
+                <div class="card">
+                    <h4>تفعيل الإشعارات</h4>
+                    <div class="form-group">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span style="margin-right: 10px;">الإشعارات البريدية</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span style="margin-right: 10px;">إشعارات التطبيق</span>
+                    </div>
+                    <h4>أنواع الإشعارات</h4>
+                    <div class="form-group">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span style="margin-right: 10px;">الأخبار والتحديثات</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span style="margin-right: 10px;">العروض الخاصة</span>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="showSuccess()">حفظ الإعدادات</button>
+                </div>
+            </div>
+
+            <!-- الخصوصية -->
+            <div class="section" id="privacy-section">
+                <div class="section-header">
+                    <h3>الخصوصية والأمان</h3>
+                    <p>إدارة إعدادات الخصوصية والأمان لحسابك</p>
+                </div>
+                <div class="card">
+                    <h4>إعدادات الخصوصية</h4>
+                    <div class="form-group">
+                        <label>من يمكنه رؤية ملفك الشخصي؟</label>
+                        <select class="form-control">
+                            <option>الجميع</option>
+                            <option>الأصدقاء فقط</option>
+                            <option>أنا فقط</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                        <span style="margin-right: 10px;">السماح بمشاركة البيانات</span>
+                    </div>
+                    <h4>الأمان</h4>
+                    <div class="form-group">
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                        <span style="margin-right: 10px;">المصادقة الثنائية (2FA)</span>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="showSuccess()">حفظ الإعدادات</button>
+                </div>
+            </div>
+
+            <!-- المظهر -->
+            <div class="section" id="appearance-section">
+                <div class="section-header">
+                    <h3>المظهر</h3>
+                    <p>تخصيص مظهر التطبيق حسب تفضيلاتك</p>
+                </div>
+                <div class="card">
+                    <h4>الوضع</h4>
+                    <div class="theme-option active" onclick="toggleTheme('light')">
+                        <div class="theme-preview" style="background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);"></div>
+                        <div>
+                            <strong>الوضع الفاتح</strong>
+                            <p>مظهر فاتح وأنيق</p>
+                        </div>
+                    </div>
+                    <div class="theme-option" onclick="toggleTheme('dark')">
+                        <div class="theme-preview" style="background: linear-gradient(135deg, #1f2937 0%, #111827 100%);"></div>
+                        <div>
+                            <strong>الوضع الداكن</strong>
+                            <p>مريح للعين في الإضاءة المنخفضة</p>
+                        </div>
+                    </div>
+                    <h4>الألوان</h4>
+                    <div class="color-palette">
+                        <div class="color-option active" style="background: #6366f1;" onclick="changeColor('#6366f1')"></div>
+                        <div class="color-option" style="background: #10b981;" onclick="changeColor('#10b981')"></div>
+                        <div class="color-option" style="background: #f59e0b;" onclick="changeColor('#f59e0b')"></div>
+                        <div class="color-option" style="background: #ef4444;" onclick="changeColor('#ef4444')"></div>
+                        <div class="color-option" style="background: #8b5cf6;" onclick="changeColor('#8b5cf6')"></div>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="showSuccess()">تطبيق التغييرات</button>
+                </div>
+            </div>
+
+            <!-- اللغة -->
+            <div class="section" id="language-section">
+                <div class="section-header">
+                    <h3>اللغة</h3>
+                    <p>اختر لغة العرض المفضلة لديك</p>
+                </div>
+                <div class="card">
+                    <div class="language-option active">
+                        <div class="flag">🇸🇦</div>
+                        <div>
+                            <strong>العربية</strong>
+                            <p>اللغة العربية</p>
+                        </div>
+                    </div>
+                    <div class="language-option">
+                        <div class="flag">🇺🇸</div>
+                        <div>
+                            <strong>English</strong>
+                            <p>English Language</p>
+                        </div>
+                    </div>
+                    <div class="language-option">
+                        <div class="flag">🇫🇷</div>
+                        <div>
+                            <strong>Français</strong>
+                            <p>Langue française</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="showSuccess()">حفظ اللغة</button>
+                </div>
+            </div>
+
+            <!-- الإعدادات العامة -->
+            <div class="section" id="general-section">
+                <div class="section-header">
+                    <h3>الإعدادات العامة</h3>
+                    <p>الإعدادات العامة للتطبيق</p>
+                </div>
+                <div class="card">
+                    <div class="form-group">
+                        <label for="timezone">المنطقة الزمنية</label>
+                        <select class="form-control" id="timezone">
+                            <option>Asia/Riyadh (+03:00)</option>
+                            <option>Asia/Dubai (+04:00)</option>
+                            <option>Europe/London (+00:00)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span style="margin-right: 10px;">التنبيهات الصوتية</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                        <span style="margin-right: 10px;">وضع التوفير في الطاقة</span>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="showSuccess()">حفظ الإعدادات</button>
+                </div>
+            </div>
+
+            <!-- منطقة الخطر -->
+            <div class="section" id="danger-section">
+                <div class="section-header">
+                    <h3>منطقة الخطر</h3>
+                    <p>إجراءات لا يمكن التراجع عنها</p>
+                </div>
+                <div class="card">
+                    <h4>حذف الحساب</h4>
+                    <p>حذف حسابك نهائيًا وإزالة جميع البيانات. هذا الإجراء لا يمكن التراجع عنه.</p>
+                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">حذف الحساب</button>
+                </div>
+            </div>
+
+            <div class="success-message" id="success-message">
+                <i class="fas fa-check-circle"></i> تم حفظ التغييرات بنجاح!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // التنقل بين الأقسام
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const section = this.getAttribute('data-section');
+                
+                // إزالة النشاط من جميع الأزرار والأقسام
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+                
+                // إضافة النشاط للزر والقسم المحدد
+                this.classList.add('active');
+                document.getElementById(section + '-section').classList.add('active');
+            });
+        });
+
+        // تغيير صورة الملف الشخصي
+        document.getElementById('profile-upload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-img').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // تبديل الوضع
+        function toggleTheme(theme) {
+            document.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.body.classList.remove('light-mode');
+                switchShader('dark');
+            } else {
+                document.body.classList.add('light-mode');
+                document.body.classList.remove('dark-mode');
+                switchShader('light');
+            }
+        }
+
+        // تغيير اللون
+        function changeColor(color) {
+            document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            document.documentElement.style.setProperty('--primary', color);
+            document.documentElement.style.setProperty('--primary-dark', color);
+        }
+
+        // تأكيد الحذف
+        function confirmDelete() {
+            if (confirm('هل أنت متأكد من رغبتك في حذف حسابك؟ هذا الإجراء لا يمكن التراجع عنه.')) {
+                alert('تم حذف الحساب (محاكاة)');
+            }
+        }
+
+        // عرض رسالة النجاح
+        function showSuccess() {
+            const message = document.getElementById('success-message');
+            message.style.display = 'block';
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+    <script>
+var canvas;
+var gl;
+var width, height;
+var currentTheme = 'light'; // Track current theme
+
+if (window.innerWidth >= 768) {
+  canvas = document.createElement("canvas");
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+  document.body.appendChild(canvas);
+  gl = canvas.getContext('webgl');
+} else {
+  // Disable canvas on mobile for better performance
+  canvas = null;
+  gl = null;
+}
+
+var mouse = {x: 0, y: 0};
+
+var numMetaballs = 30;
+var metaballs = [];
+
+for (var i = 0; i < numMetaballs; i++) {
+  var radius = Math.random() * 60 + 10;
+  metaballs.push({
+    x: Math.random() * (width - 2 * radius) + radius,
+    y: Math.random() * (height - 2 * radius) + radius,
+    vx: (Math.random() - 0.5) * 3,
+    vy: (Math.random() - 0.5) * 3,
+    r: radius * 0.75
+  });
+}
+
+var vertexShaderSrc = `
+attribute vec2 position;
+
+void main() {
+  // position specifies only x and y.
+  // We set z to be 0.0, and w to be 1.0
+  gl_Position = vec4(position, 0.0, 1.0);
+}
+`;
+
+// Fragment shader for light mode (transparent background)
+var fragmentShaderSrcLight = `
+precision highp float;
+
+const float WIDTH = ` + (width >> 0) + `.0;
+const float HEIGHT = ` + (height >> 0) + `.0;
+
+uniform vec3 metaballs[` + numMetaballs + `];
+
+void main(){
+  float x = gl_FragCoord.x;
+  float y = gl_FragCoord.y;
+
+  float sum = 0.0;
+  for (int i = 0; i < ` + numMetaballs + `; i++) {
+    vec3 metaball = metaballs[i];
+    float dx = metaball.x - x;
+    float dy = metaball.y - y;
+    float radius = metaball.z;
+
+    sum += (radius * radius) / (dx * dx + dy * dy);
+  }
+
+  if (sum >= 0.99) {
+    // لون الميتابولز: أسود مع تدرج أزرق فاتح
+    gl_FragColor = vec4(mix(vec3(0.2, 0.4, 0.8), vec3(1.0), max(0.0, 1.0 - (sum - 0.99) * 100.0)), 1.0);
+    return;
+  }
+
+  // خلفية شفافة للوضع الفاتح
+  gl_FragColor = vec4(1.0, 1.0, 1.0, 0.0);
+}
+`;
+
+// Fragment shader for dark mode (black background)
+var fragmentShaderSrcDark = `
+precision highp float;
+
+const float WIDTH = ` + (width >> 0) + `.0;
+const float HEIGHT = ` + (height >> 0) + `.0;
+
+uniform vec3 metaballs[` + numMetaballs + `];
+
+void main(){
+  float x = gl_FragCoord.x;
+  float y = gl_FragCoord.y;
+
+  float sum = 0.0;
+  for (int i = 0; i < ` + numMetaballs + `; i++) {
+    vec3 metaball = metaballs[i];
+    float dx = metaball.x - x;
+    float dy = metaball.y - y;
+    float radius = metaball.z;
+
+    sum += (radius * radius) / (dx * dx + dy * dy);
+  }
+
+  if (sum >= 0.99) {
+    // لون الميتابولز: أسود مع تدرج أزرق فاتح
+    gl_FragColor = vec4(mix(vec3(0.2, 0.4, 0.8), vec3(1.0), max(0.0, 1.0 - (sum - 0.99) * 100.0)), 1.0);
+    return;
+  }
+
+  // خلفية سوداء للوضع الداكن
+  gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+}
+`;
+
+var programLight, programDark;
+var metaballsHandleLight, metaballsHandleDark;
+var positionHandleLight, positionHandleDark;
+
+if (gl) {
+  // Compile shaders for both themes
+  var vertexShader = compileShader(vertexShaderSrc, gl.VERTEX_SHADER);
+  var fragmentShaderLight = compileShader(fragmentShaderSrcLight, gl.FRAGMENT_SHADER);
+  var fragmentShaderDark = compileShader(fragmentShaderSrcDark, gl.FRAGMENT_SHADER);
+
+  // Create programs
+  programLight = gl.createProgram();
+  gl.attachShader(programLight, vertexShader);
+  gl.attachShader(programLight, fragmentShaderLight);
+  gl.linkProgram(programLight);
+
+  programDark = gl.createProgram();
+  gl.attachShader(programDark, vertexShader);
+  gl.attachShader(programDark, fragmentShaderDark);
+  gl.linkProgram(programDark);
+
+  // Set up vertex data for both programs
+  var vertexData = new Float32Array([
+    -1.0,  1.0, // top left
+    -1.0, -1.0, // bottom left
+    1.0,  1.0, // top right
+    1.0, -1.0, // bottom right
+  ]);
+
+  // For light program
+  gl.useProgram(programLight);
+  var vertexDataBufferLight = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexDataBufferLight);
+  gl.bufferData(gl.ARRAY_BUFFER, vertexData, gl.STATIC_DRAW);
+  positionHandleLight = getAttribLocation(programLight, 'position');
+  gl.enableVertexAttribArray(positionHandleLight);
+  gl.vertexAttribPointer(positionHandleLight, 2, gl.FLOAT, gl.FALSE, 2 * 4, 0);
+  metaballsHandleLight = getUniformLocation(programLight, 'metaballs');
+
+  // For dark program
+  gl.useProgram(programDark);
+  var vertexDataBufferDark = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexDataBufferDark);
+  gl.bufferData(gl.ARRAY_BUFFER, vertexData, gl.STATIC_DRAW);
+  positionHandleDark = getAttribLocation(programDark, 'position');
+  gl.enableVertexAttribArray(positionHandleDark);
+  gl.vertexAttribPointer(positionHandleDark, 2, gl.FLOAT, gl.FALSE, 2 * 4, 0);
+  metaballsHandleDark = getUniformLocation(programDark, 'metaballs');
+
+  // Start with light theme
+  gl.useProgram(programLight);
+
+  loop();
+  function loop() {
+    for (var i = 0; i < numMetaballs; i++) {
+      var metaball = metaballs[i];
+      metaball.x += metaball.vx;
+      metaball.y += metaball.vy;
+
+      if (metaball.x < metaball.r || metaball.x > width - metaball.r) metaball.vx *= -1;
+      if (metaball.y < metaball.r || metaball.y > height - metaball.r) metaball.vy *= -1;
+    }
+
+    var dataToSendToGPU = new Float32Array(3 * numMetaballs);
+    for (var i = 0; i < numMetaballs; i++) {
+      var baseIndex = 3 * i;
+      var mb = metaballs[i];
+      dataToSendToGPU[baseIndex + 0] = mb.x;
+      dataToSendToGPU[baseIndex + 1] = mb.y;
+      dataToSendToGPU[baseIndex + 2] = mb.r;
+    }
+    if (currentTheme === 'light') {
+      gl.uniform3fv(metaballsHandleLight, dataToSendToGPU);
+    } else {
+      gl.uniform3fv(metaballsHandleDark, dataToSendToGPU);
+    }
+
+    //Draw
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+    requestAnimationFrame(loop);
+  }
+
+  function compileShader(shaderSource, shaderType) {
+    var shader = gl.createShader(shaderType);
+    gl.shaderSource(shader, shaderSource);
+    gl.compileShader(shader);
+
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+      throw "Shader compile failed with: " + gl.getShaderInfoLog(shader);
+    }
+
+    return shader;
+  }
+
+  function getUniformLocation(program, name) {
+    var uniformLocation = gl.getUniformLocation(program, name);
+    if (uniformLocation === -1) {
+      throw 'Can not find uniform ' + name + '.';
+    }
+    return uniformLocation;
+  }
+
+  function getAttribLocation(program, name) {
+    var attributeLocation = gl.getAttribLocation(program, name);
+    if (attributeLocation === -1) {
+      throw 'Can not find attribute ' + name + '.';
+    }
+    return attributeLocation;
+  }
+
+  canvas.onmousemove = function(e) {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  }
+}
+
+// Function to switch shader based on theme
+function switchShader(theme) {
+  if (!gl) return;
+  currentTheme = theme;
+  if (theme === 'light') {
+    gl.useProgram(programLight);
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexDataBufferLight);
+    gl.enableVertexAttribArray(positionHandleLight);
+    gl.vertexAttribPointer(positionHandleLight, 2, gl.FLOAT, gl.FALSE, 2 * 4, 0);
+  } else {
+    gl.useProgram(programDark);
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexDataBufferDark);
+    gl.enableVertexAttribArray(positionHandleDark);
+    gl.vertexAttribPointer(positionHandleDark, 2, gl.FLOAT, gl.FALSE, 2 * 4, 0);
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>تصميم شات بوت</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: black;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+  }
+  .chat-container {
+    position: relative;
+    z-index: 1;
+    width: 400px;
+    max-width: 95vw;
+    height: 600px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .chat-header {
+    background: #4a90e2;
+    color: white;
+    padding: 15px 20px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  .chat-messages {
+    flex: 1;
+    padding: 15px 20px;
+    overflow-y: auto;
+    background: #e5e5e5;
+  }
+  .message {
+    max-width: 75%;
+    margin-bottom: 15px;
+    padding: 12px 18px;
+    border-radius: 20px;
+    font-size: 1rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+  }
+  .message.user {
+    background: #4a90e2;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+  }
+  .message.bot {
+    background: #fff;
+    color: #333;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .chat-input-area {
+    display: flex;
+    padding: 15px 20px;
+    border-top: 1px solid #ddd;
+    background: white;
+  }
+  .chat-input-area input[type="text"] {
+    flex: 1;
+    padding: 12px 15px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .chat-input-area input[type="text"]:focus {
+    border-color: #4a90e2;
+  }
+  .chat-input-area button {
+    background: #4a90e2;
+    border: none;
+    color: white;
+    padding: 0 20px;
+    margin-left: 10px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .chat-input-area button:hover {
+    background: #357ABD;
+  }
+  /* Scrollbar styling */
+  .chat-messages::-webkit-scrollbar {
+    width: 8px;
+  }
+  .chat-messages::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="chat-container" role="main" aria-label="شات بوت">
+  <header class="chat-header" aria-live="polite" aria-atomic="true">
+    بوت المحادثة
+  </header>
+  <div class="chat-messages" id="chatMessages" tabindex="0" aria-live="polite" aria-relevant="additions">
+    <!-- الرسائل ستظهر هنا -->
+  </div>
+  <form class="chat-input-area" id="chatForm" aria-label="إرسال رسالة">
+    <input type="text" id="userInput" placeholder="اكتب رسالتك هنا..." autocomplete="off" aria-required="true" />
+    <button type="submit" aria-label="إرسال">إرسال</button>
+  </form>
+</div>
+
+<script>
+  const chatMessages = document.getElementById('chatMessages');
+  const chatForm = document.getElementById('chatForm');
+  const userInput = document.getElementById('userInput');
+
+  // دالة لإضافة رسالة إلى الشات
+  function addMessage(text, sender) {
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('message', sender);
+    msgDiv.textContent = text;
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // محاكاة رد البوت (يمكنك استبدالها بمنطق حقيقي)
+  function botReply(userText) {
+    // ردود بسيطة كمثال
+    const replies = {
+      'مرحبا': 'أهلاً! كيف يمكنني مساعدتك اليوم؟',
+      'كيف حالك؟': 'أنا بخير، شكراً لسؤالك! كيف يمكنني مساعدتك؟',
+      'ما اسمك؟': 'أنا بوت المحادثة الخاص بك.',
+      'شكراً': 'على الرحب والسعة!',
+    };
+    // البحث عن رد مناسب
+    const reply = replies[userText.trim()] || 'عذراً، لم أفهم طلبك. هل يمكنك إعادة صياغته؟';
+    return reply;
+  }
+
+  chatForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const text = userInput.value.trim();
+    if (!text) return;
+    addMessage(text, 'user');
+    userInput.value = '';
+    // تأخير بسيط لمحاكاة رد البوت
+    setTimeout(() => {
+      const reply = botReply(text);
+      addMessage(reply, 'bot');
+    }, 700);
+  });
+
+  // إضافة رسالة ترحيبية تلقائياً
+  window.onload = () => {
+    addMessage('مرحباً! أنا هنا لمساعدتك. اكتب سؤالك أو رسالتك.', 'bot');
+  };
+</script>
+
+<script src="huss.js"></script>
+
+</body>
+</html>

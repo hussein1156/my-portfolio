@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>السيرة الذاتية</title>
+  <link rel="stylesheet" href="huss.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal&display=swap');
+
+    body {
+      font-family: "Tajawal", sans-serif;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .container {
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      display: flex;
+  justify-content: center;   /* يخليه في النص أفقي */
+    }
+
+    .cv-buttons {
+      display: flex;
+      gap: 25px;
+      perspective: 800px; /* لإظهار تأثير 3D */
+    }
+
+    .btn {
+      padding: 14px 30px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+      background: linear-gradient(145deg, #0077ff, #005fcc);
+      box-shadow:
+        0 6px 10px rgba(0, 119, 255, 0.4),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      /* 3D effect */
+      transform-style: preserve-3d;
+      transform-origin: center bottom;
+    }
+
+    .btn.download {
+      background: linear-gradient(145deg, #28a745, #1e7e34);
+      box-shadow:
+        0 6px 10px rgba(40, 167, 69, 0.4),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn.view {
+      background: linear-gradient(145deg, #0077ff, #005fcc);
+      box-shadow:
+        0 6px 10px rgba(0, 119, 255, 0.4),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    /* تأثير الضغط 3D */
+    .btn:active {
+      transform: translateZ(-10px) scale(0.95);
+      box-shadow:
+        0 2px 5px rgba(0,0,0,0.2),
+        inset 0 3px 6px rgba(0,0,0,0.3);
+      transition: transform 0.1s ease;
+    }
+
+    /* تأثير تحويم 3D */
+    .btn:hover {
+      transform: translateZ(10px) scale(1.05);
+      box-shadow:
+        0 12px 20px rgba(0,0,0,0.3),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.25);
+    }
+
+    /* أيقونات داخل الأزرار */
+    .btn svg, .btn span.icon {
+      margin-left: 8px;
+      font-size: 1.3rem;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="cv-buttons" role="group" aria-label="خيارات السيرة الذاتية">
+      <a href="Hussein_Mohamed_CV_Clean.pdf" target="_blank" class="btn view" aria-label="عرض السيرة الذاتية">
+        عرض CV
+        <span class="icon" aria-hidden="true">📄</span>
+      </a>
+      <a href="Hussein_Mohamed_CV_Clean.pdf" download class="btn download" aria-label="تحميل السيرة الذاتية">
+        تحميل CV
+        <span class="icon" aria-hidden="true">⬇️</span>
+      </a>
+    </div>
+  </div>
+  <script src="huss.js"></script>
+</body>
+</html>

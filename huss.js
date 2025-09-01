@@ -1,8 +1,16 @@
-var canvas = document.createElement("canvas");
-var width = canvas.width = window.innerWidth * 0.75;
-var height = canvas.height = window.innerHeight * 0.75;
-document.body.appendChild(canvas);
-var gl = canvas.getContext('webgl');
+var canvas;
+var gl;
+if (window.innerWidth >= 768) {
+  canvas = document.createElement("canvas");
+  var width = canvas.width = window.innerWidth * 0.75;
+  var height = canvas.height = window.innerHeight * 0.75;
+  document.body.appendChild(canvas);
+  gl = canvas.getContext('webgl');
+} else {
+  // Disable canvas on mobile for better performance
+  canvas = null;
+  gl = null;
+}
 
 var mouse = {x: 0, y: 0};
 
