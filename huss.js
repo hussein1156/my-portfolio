@@ -1,20 +1,14 @@
 var canvas;
 var gl;
-if (window.innerWidth >= 768) {
-  canvas = document.createElement("canvas");
-  var width = canvas.width = window.innerWidth * 0.75;
-  var height = canvas.height = window.innerHeight * 0.75;
-  document.body.appendChild(canvas);
-  gl = canvas.getContext('webgl');
-} else {
-  // Disable canvas on mobile for better performance
-  canvas = null;
-  gl = null;
-}
+canvas = document.createElement("canvas");
+var width = canvas.width = window.innerWidth;
+var height = canvas.height = window.innerHeight;
+document.body.appendChild(canvas);
+gl = canvas.getContext('webgl');
 
 var mouse = {x: 0, y: 0};
 
-var numMetaballs = 30;
+var numMetaballs = window.innerWidth < 768 ? 15 : 30;
 var metaballs = [];
 
 for (var i = 0; i < numMetaballs; i++) {

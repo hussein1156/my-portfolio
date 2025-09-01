@@ -804,12 +804,12 @@ section {
     position: fixed;
     right: -250px;
     top: 0;
-    width: 100px;
-    height: 10%;
-    background-color: rgba(41, 44, 44, 0); /* أغمق عشان يبان في الموبايل */
+    width: 250px;
+    height: 100vh;
+    background-color: rgba(41, 44, 44, 0.9); /* أغمق عشان يبان في الموبايل */
     color: white;
     transition: right 0.3s;
-    margin-top: 50px;   /* ينزل تحت */
+    padding-top: 80px;
     z-index: 999;
     border-radius: 12px;
   }
