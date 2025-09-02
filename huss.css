@@ -818,7 +818,7 @@ section {
     list-style: none;
     text-align: right;  /* كل العناصر تيجي يمين */
     padding-right: 10px; /* مسافة صغيرة من اليمين */
-    margin-top: 50px; /* هنا 50px يخلي العناصر كلها تنزل لتحت */
+    margin-top:100px; /* هنا 50px يخلي العناصر كلها تنزل لتحت */
 
     }
 
@@ -866,6 +866,8 @@ section {
 
   .container .main {
     flex-direction: column;
+    position: relative;
+    top: 50px;   /* ينزل لتحت 50px */
 
   }
 
