@@ -806,7 +806,7 @@ section {
     top: 0;
     width: 250px;
     height: 100vh;
-    background-color: rgba(41, 44, 44, 0.9); /* أغمق عشان يبان في الموبايل */
+    background-color: rgba(41, 44, 44, 0); /* أغمق عشان يبان في الموبايل */
     color: white;
     transition: right 0.3s;
     padding-top: 80px;
@@ -816,7 +816,11 @@ section {
 
   .side-menu ul {
     list-style: none;
-  }
+    text-align: right;  /* كل العناصر تيجي يمين */
+    padding-right: 10px; /* مسافة صغيرة من اليمين */
+    margin-top: 50px; /* هنا 50px يخلي العناصر كلها تنزل لتحت */
+
+    }
 
   .side-menu ul li a {
     display: block;
@@ -858,11 +862,11 @@ section {
     padding: 12px 15px;
     font-size: 0.9em;
   }
+  
 
   .container .main {
     flex-direction: column;
-    padding: 50px 20px;
-    text-align: center;
+
   }
 
   section.main {
